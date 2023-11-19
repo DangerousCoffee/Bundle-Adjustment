@@ -9,7 +9,7 @@ struct Point {
 	float z; /*! z of the point */
 
 	/*! 
-	* A constructor object. Assings every value of the point object.
+	* A constructor function. Assings every value of the point object.
 	*/
 	Point(int id, float x, float y, float z) {
 		this->id = id;

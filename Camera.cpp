@@ -15,7 +15,7 @@ struct Camera {
 	float distortion_coef2; /*! distrotion coefficient 2 */
 
 	/*!
-	* Constructor object. Assigns every values of the camera object.
+	* Constructor function. Assigns every values of the camera object.
 	*/
 	Camera(int id, 
 		float pos_x,

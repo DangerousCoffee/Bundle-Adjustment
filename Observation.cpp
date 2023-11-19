@@ -10,7 +10,7 @@ struct Observation {
 	float y; /*! y of the point on camera */
 
 	/*!
-	* A constructor object. Assigns every value of the observation object.
+	* A constructor function. Assigns every value of the observation object.
 	*/
 	Observation(int id, int camera_id, int point_id, float x, float y) {
 		this->id = id;
