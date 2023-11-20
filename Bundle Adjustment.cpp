@@ -13,8 +13,8 @@ int main()
     std::ifstream file(filename); 
 
     Eigen::Vector<Observation, -1> observations; /*! array for observations */
-    Eigen::Vector<Camera, -1> cameras; /*! array for cameras */
-    Eigen::Vector<Point, -1> points; /*! array for points */
+    std::map<int, Camera> cameras; /*! hash map for cameras */
+    std::map<int, Point> points; /*! hash map for points */
 
     /*! TODO: maybe make points and cameras arrays into hash maps(preferrable) or binary trees */
 
@@ -25,8 +25,6 @@ int main()
     file >> num_observations;
 
     observations = Eigen::Vector<Observation, -1>(num_observations);
-    cameras = Eigen::Vector<Camera, -1>(num_cam);
-    points = Eigen::Vector<Point, -1>(num_points);
 
     /*! iterate over observations and add them to array */
     for (int i = 0; i < num_observations; i++) {

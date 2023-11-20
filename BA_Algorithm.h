@@ -1,5 +1,6 @@
 #pragma once
 #include "Eigen/Sparse"
+#include "unsupported/Eigen/AutoDiff"
 #include "Point.cpp"
 #include "Observation.cpp"
 #include "Camera.cpp"
@@ -16,11 +17,11 @@ class BundleAdjustment {
 		/*! 
 		* Constructor function. Used to assign cameras, points and observation arrays.
 		* 
-		* @param cameras - an eigen vector of cameras
-		* @param points - an eigen vector of points
+		* @param cameras - a hash map of cameras
+		* @param points - a hash map of points
 		* @param observations - an eigen vector of observations
 		*/
-		BundleAdjustment(Eigen::Vector<Camera, -1> cameras, Eigen::Vector<Point, -1> points, Eigen::Vector<Observation, -1> observations);
+		BundleAdjustment(std::map<int, Camera> cameras, std::map<int, Point> points, Eigen::Vector<Observation, -1> observations);
 		/*!
 		* Destructor function.
 		*/
@@ -42,8 +43,8 @@ class BundleAdjustment {
 		*/
 		virtual void updateParams();
 
-		Eigen::Vector<Camera, -1> cameras; /*! array of camera objects */
-		Eigen::Vector<Point, -1> points; /*! array of point objects */
+		std::map<int, Camera> cameras; /*! hash map of camera objects */
+		std::map<int, Point> points; /*! hash map of point objects */
 		Eigen::Vector<Observation, -1> observations; /*! array of observation objects */
 
 	private: 
