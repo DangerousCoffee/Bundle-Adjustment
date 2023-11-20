@@ -18,7 +18,7 @@ struct Camera {
 	/*!
 	* Constructor function. Assigns every values of the camera object.
 	*/
-	Camera(int id, 
+	Camera(int id,
 		float pos_x,
 		float pos_y,
 		float pos_z,
@@ -57,6 +57,24 @@ struct Camera {
 			(1 - cos(magnitude)) * skew_sym_matrix * skew_sym_matrix;
 
 		return rotationMatrix;
+	}
+
+	Eigen::Vector3f point_world_to_camera_coordinates(Eigen::Vector3f point_in_world_coordinates) {
+
+		Eigen::Matrix3f rotation_matrix = this->rotation_matrix();
+		Eigen::Vector3f translation_vector = { this->pos_x, this->pos_y, this->pos_z };
+
+		Eigen::Matrix4f transform_matrix = Eigen::Matrix4f::Identity();
+		transform_matrix.block<3, 3>(0, 0) = rotation_matrix;
+		transform_matrix.block<3, 1>(0, 3) = translation_vector;
+
+		Eigen::Vector4f point_world_homogeneous;
+		point_world_homogeneous.head<3>() = point_in_world_coordinates;
+		point_world_homogeneous(3) = 1.0;
+
+		Eigen::Vector4f point_in_camera_coordinates = transform_matrix * point_world_homogeneous;
+
+		return point_in_camera_coordinates.head<3>();
 	}
 };
 
