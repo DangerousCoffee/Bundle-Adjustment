@@ -36,5 +36,4 @@ void BundleAdjustment::solveJacobian() {
 }
 
 void BundleAdjustment::updateParams() {
-
 }

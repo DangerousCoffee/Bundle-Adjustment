@@ -76,5 +76,23 @@ struct Camera {
 
 		return point_in_camera_coordinates.head<3>();
 	}
+
+	Eigen::Vector2f point_projection(Point point) {
+		Eigen::Vector3f point_in_camera_coordinates = this->point_world_to_camera_coordinates(point.point_in_world_coordinates());
+
+		Eigen::Vector2f perspective_division = {
+			-point_in_camera_coordinates[0] / point_in_camera_coordinates[2],
+			-point_in_camera_coordinates[1] / point_in_camera_coordinates[2]
+		};
+
+		float normalised_p = perspective_division.norm();
+
+		float radial_distortion =
+			1.0 + this->distortion_coef1 * std::pow(normalised_p, 2) +
+			this->distortion_coef2 * std::pow(normalised_p, 4);
+
+
+		return 	this->focal_length * radial_distortion * perspective_division;;
+	}
 };
 

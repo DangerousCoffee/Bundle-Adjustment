@@ -49,4 +49,5 @@ class BundleAdjustment {
 
 	private: 
 
+		void pointProjection();
 };
