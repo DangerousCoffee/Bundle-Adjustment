@@ -49,7 +49,7 @@ void BundleAdjustment::solveJacobian() {
 void BundleAdjustment::updateParams() {
 }
 
-/*/Eigen::Vector2f BundleAdjustment::pointProjection(Point point, Camera camera) {
+Eigen::Vector2f BundleAdjustment::pointProjection(Point point, Camera camera) {
 	Eigen::Vector3f point_in_camera_coordinates = this->pointWorldToCameraCoordinates(point, camera);
 
 	Eigen::Vector2f perspective_division = {
@@ -106,4 +106,4 @@ T pointProjectionFunction(
 		camera.distortion_coef2 * std::pow(normalised_p, 4);
 
 	return focal_length * radial_distortion * perspective_division;
-} */
+} 
