@@ -49,5 +49,8 @@ class BundleAdjustment {
 
 	private: 
 
-		void pointProjection();
+		Eigen::Vector2f pointProjection(Point point, Camera camera);
+		Eigen::Vector3f pointWorldToCameraCoordinates(Point point, Camera camera);
+		//float radialDistortion(Point point, Camera camera);
+		//Eigen::Vector2f perspectiveDivision(Point point, Camera camera);
 };

@@ -142,6 +142,7 @@
     <ClCompile Include="BA_Algorithm.cpp" />
     <ClCompile Include="Bundle Adjustment.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="JacobianFunction.cpp" />
     <ClCompile Include="Observation.cpp" />
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
