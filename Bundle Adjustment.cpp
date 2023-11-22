@@ -1,9 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Eigen/Sparse"
-#include "Camera.cpp"
-#include "Point.cpp"
-#include "Observation.cpp"
+#include "BA_Algorithm.h"
 
 int main()
 {
@@ -66,4 +64,6 @@ int main()
         points[i] = Point(i, pos_x, pos_y, pos_z);
     }
 
+    BundleAdjustment bundleAdjustment = BundleAdjustment(cameras, points, observations);
+    bundleAdjustment.buildJacobian();
 }

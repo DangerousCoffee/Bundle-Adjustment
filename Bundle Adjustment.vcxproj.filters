@@ -30,7 +30,7 @@
     <ClCompile Include="BA_Algorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="JacobianFunction.cpp">
+    <ClCompile Include="JacobianFunctionWithRespectToRotation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

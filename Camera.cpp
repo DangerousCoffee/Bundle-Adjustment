@@ -58,5 +58,9 @@ struct Camera {
 
 		return rotationMatrix;
 	}
+
+	Eigen::Vector3f camera_position() {
+		return Eigen::Vector3f(this->pos_x, this->pos_y, this->pos_z);
+	}
 };
 
