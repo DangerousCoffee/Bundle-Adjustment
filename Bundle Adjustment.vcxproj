@@ -142,12 +142,12 @@
     <ClCompile Include="BA_Algorithm.cpp" />
     <ClCompile Include="Bundle Adjustment.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="JacobianFunctionWithRespectToRotation.cpp" />
     <ClCompile Include="Observation.cpp" />
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BA_Algorithm.h" />
+    <ClInclude Include="Jacobian.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

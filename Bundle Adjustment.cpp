@@ -6,15 +6,13 @@
 int main()
 {
 
-    std::string filename = "problem - 49 - 7776 - pre.txt"; /*! store input file name */
+    std::string filename = "problem-49-7776-pre.txt"; /*! store input file name */
 
     std::ifstream file(filename); 
 
-    Eigen::Vector<Observation, -1> observations; /*! array for observations */
     std::map<int, Camera> cameras; /*! hash map for cameras */
     std::map<int, Point> points; /*! hash map for points */
 
-    /*! TODO: maybe make points and cameras arrays into hash maps(preferrable) or binary trees */
 
     /*! extract number of entries for cameras, points and observations */
     int num_cam, num_points, num_observations;
@@ -22,7 +20,7 @@ int main()
     file >> num_points;
     file >> num_observations;
 
-    observations = Eigen::Vector<Observation, -1>(num_observations);
+    Eigen::VectorX<Observation> observations(num_observations); /*! array for observations */
 
     /*! iterate over observations and add them to array */
     for (int i = 0; i < num_observations; i++) {
@@ -34,7 +32,7 @@ int main()
         file >> pos_x;
         file >> pos_y;
 
-        observations[i] = Observation(i, camera_id, point_id, pos_x, pos_y);
+        observations(i) = Observation(i, camera_id, point_id, pos_x, pos_y);
     }
 
     /*! iterate over cameras and add them to array */

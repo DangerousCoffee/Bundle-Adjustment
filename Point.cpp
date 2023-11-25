@@ -1,4 +1,4 @@
-#include "BA_Algorithm.h"
+#include "Eigen/Sparse"
 /*! \brief A struct for storing a point.
 * 
 * This struct is used to store data of a 3D point in the environment. It provides id and coordinates of the point.
@@ -17,6 +17,13 @@ struct Point {
 		this->x = x;
 		this->y = y;
 		this->z = z;
+	}
+
+	Point() {
+		this->id = 0;
+		this->x = 0;
+		this->y = 0;
+		this->z = 0;
 	}
 
 	Eigen::Vector3f point_in_world_coordinates() {

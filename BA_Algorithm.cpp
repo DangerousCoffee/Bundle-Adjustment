@@ -13,28 +13,19 @@ BundleAdjustment::~BundleAdjustment() {
 void BundleAdjustment::buildJacobian() {
 	
 	Eigen::SparseMatrix<float> jacobianMatrix(this->observations.size(), this->cameras.size() + this->points.size());
-	Eigen::AutoDiffScalar<Eigen::Vector<float, 3>> differentiation;
 
-	for (int i = 0; i < this->observations.size()/4; i++) {
+	for (int i = 0; i < this->observations.size() / 100; i++) {
 		Observation current_observation = observations[i];
 
 		Camera current_camera = this->cameras[current_observation.camera_id];
 		Point current_point = this->points[current_observation.point_id];
 
-		Eigen::Matrix3f rotation_matrix = current_camera.rotation_matrix();
-		//Eigen::Vector2f point_pixel_coordinates = this->pointProjection(current_point, current_camera);
+		Eigen::Matrix3f rotation_matrix = current_camera.rotation_matrix(); 
+		Eigen::Quaternion<float> camera_quaternion = current_camera.camera_quaternion(rotation_matrix);
 
-		Eigen::AutoDiffJacobian<JacobianFunctionWithRespectToRotation<3, 2>()> jacobianFunction;
+		std::cout << std::endl << camera_quaternion << std::endl;
 
-		Eigen::Matrix3f vIn = rotation_matrix;
-		Eigen::Matrix<float, 2, 1> vOut;
-		Eigen::Matrix<float, 2, 9> jacobianWithRespectToRotation;
-
-		jacobianFunction(vIn, &vOut, &jacobianWithRespectToRotation, current_camera, current_point);
-		
-		std::cout << std::endl << jacobianWithRespectToRotation << std::endl;
-
-	}
+	}; 
 
 }
 
@@ -49,7 +40,7 @@ void BundleAdjustment::solveJacobian() {
 void BundleAdjustment::updateParams() {
 }
 
-Eigen::Vector2f BundleAdjustment::pointProjection(Point point, Camera camera) {
+/*Eigen::Vector2f BundleAdjustment::pointProjection(Point point, Camera camera) {
 	Eigen::Vector3f point_in_camera_coordinates = this->pointWorldToCameraCoordinates(point, camera);
 
 	Eigen::Vector2f perspective_division = {
@@ -65,9 +56,9 @@ Eigen::Vector2f BundleAdjustment::pointProjection(Point point, Camera camera) {
 
 
 	return 	camera.focal_length * radial_distortion * perspective_division;
-}
+} */
 
-Eigen::Vector3f BundleAdjustment::pointWorldToCameraCoordinates(Point point, Camera camera) {
+/*Eigen::Vector3f BundleAdjustment::pointWorldToCameraCoordinates(Point point, Camera camera) {
 
 	Eigen::Matrix3f rotation_matrix = camera.rotation_matrix();
 	Eigen::Vector3f translation_vector = { camera.pos_x, camera.pos_y, camera.pos_z };
@@ -84,8 +75,9 @@ Eigen::Vector3f BundleAdjustment::pointWorldToCameraCoordinates(Point point, Cam
 
 	return point_in_camera_coordinates.head<3>();
 }
+*/
 
-template <typename T> 
+/* template <typename T>
 T pointProjectionFunction(
 	T const& cameraRotation,
 	T const& cameraPosition,
@@ -106,4 +98,4 @@ T pointProjectionFunction(
 		camera.distortion_coef2 * std::pow(normalised_p, 4);
 
 	return focal_length * radial_distortion * perspective_division;
-} 
+} */

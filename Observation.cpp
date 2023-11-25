@@ -19,4 +19,12 @@ struct Observation {
 		this->x = x;
 		this->y = y;
 	}
+
+	Observation() {
+		this->id = 0;
+		this->camera_id = 0;
+		this->point_id = 0;
+		this->x = 0;
+		this->y = 0;
+	}
 };

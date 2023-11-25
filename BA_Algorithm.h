@@ -1,11 +1,9 @@
 #pragma once
-#include "Eigen/Sparse"
-#include "unsupported/Eigen/AutoDiff"
-#include "Point.cpp"
-#include "Observation.cpp"
-#include "Camera.cpp"
-#include "JacobianFunctionWithRespectToRotation.cpp"
-#include <iostream>
+#ifndef BA_ALGORITHM_H
+#define BA_ALGORITHM_H
+
+
+#include "Jacobian.h"
 
 /*! \brief A class to handle bundle adjustment logic.
 * 
@@ -56,3 +54,5 @@ class BundleAdjustment {
 		//float radialDistortion(Point point, Camera camera);
 		//Eigen::Vector2f perspectiveDivision(Point point, Camera camera);
 };
+
+#endif

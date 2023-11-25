@@ -1,4 +1,5 @@
-#include "BA_Algorithm.h"
+#include "Eigen/Sparse"
+#include "Eigen/Geometry"
 /*! \brief A struct for storing camera data. 
 * 
 * This struct is used to store camera data. It provides camera id, position and intrinsics.
@@ -41,26 +42,33 @@ struct Camera {
 		this->distortion_coef2 = distortion_coef2;
 	}
 
-	Eigen::Matrix3f rotation_matrix() {
-		Eigen::Vector3f rVector = { this->rot_x, this->rot_y, this->rot_z };
-		float magnitude = rVector.norm();
-
-		Eigen::Vector3f normalisedVector = rVector / magnitude;
-
-		Eigen::Matrix3f skew_sym_matrix = {
-			0, -normalisedVector[2], normalisedVector[1],
-			normalisedVector[2], 0, -normalisedVector[0],
-			-normalisedVector[1], normalisedVector[0], 0
-		};
-
-		Eigen::Matrix3f rotationMatrix = Eigen::Matrix3f::Identity() + sin(magnitude) * skew_sym_matrix +
-			(1 - cos(magnitude)) * skew_sym_matrix * skew_sym_matrix;
-
-		return rotationMatrix;
+	Camera() {
+		this->id = 0;
+		this->pos_x = 0;
+		this->pos_y = 0;
+		this->pos_z = 0;
+		this->rot_x = 0;
+		this->rot_y = 0;
+		this->rot_z = 0;
+		this->focal_length = 0;
+		this->distortion_coef1 = 0;
+		this->distortion_coef2 = 0;
 	}
 
+	Eigen::Matrix3f rotation_matrix() {
+		Eigen::Vector3f rVector = { this->rot_x, this->rot_y, this->rot_z };
+		Eigen::AngleAxisf rotAA(rVector.norm(), rVector.normalized());
+
+		return rotAA.matrix(); 
+	}
+	
 	Eigen::Vector3f camera_position() {
 		return Eigen::Vector3f(this->pos_x, this->pos_y, this->pos_z);
+	}
+
+	Eigen::Quaternion<float> camera_quaternion(Eigen::Matrix3f rotation_matrix) {
+		Eigen::Quaternion<float> quaternion(rotation_matrix);
+		return quaternion;
 	}
 };
 
