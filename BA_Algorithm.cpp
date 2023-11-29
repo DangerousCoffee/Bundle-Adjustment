@@ -51,8 +51,8 @@ void BundleAdjustment::updateParams() {
 	float normalised_p = perspective_division.norm();
 
 	float radial_distortion =
-		1.0 + camera.distortion_coef1 * std::pow(normalised_p, 2) +
-		camera.distortion_coef2 * std::pow(normalised_p, 4);
+		1.0 + camera.distortion_coef1 * std::pow(normalised_p*normalized_p, 2) +
+		camera.distortion_coef2 * std::pow(normalised_p*normalized_p, 4);
 
 
 	return 	camera.focal_length * radial_distortion * perspective_division;
